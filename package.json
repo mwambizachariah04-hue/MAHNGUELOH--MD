@@ -1,1 +1,29 @@
-{\n  "name": "whatsapp-bot",\n  "version": "1.0.0",\n  "description": "A WhatsApp bot built for automation purposes.",\n  "main": "index.js",\n  "scripts": {\n    "start": "node index.js"\n  },\n  "dependencies": {\n    "whatsapp-web.js": "^1.18.0",\n    "axios": "^0.24.0",\n    "dotenv": "^10.0.0"\n  },\n  "engines": {\n    "node": ">=14.0.0"\n  },\n  "pterodactyl": {\n    "environment": {\n      "NODE_ENV": "production"\n    },\n    "startup": "node index.js",\n    "build": "npm install"\n  }\n}
+{
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "description": "A WhatsApp bot using Baileys",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "dependencies": {
+    "@adiwajshing/baileys": "latest",
+    "axios": "latest",
+    "chalk": "latest",
+    "cheerio": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "figlet": "latest",
+    "fluent-ffmpeg": "latest",
+    "jimp": "latest",
+    "lodash": "latest",
+    "moment-timezone": "latest",
+    "node-cache": "latest",
+    "pino": "latest",
+    "sqlite3": "latest",
+    "youtube-dl-exec": "latest"
+  },
+  "author": "Your Name",
+  "license": "ISC"
+}
