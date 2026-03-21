@@ -1,0 +1,14 @@
+# Node modules folder
+node_modules/
+
+# Environment variable files
+.env
+
+# Session folders
+session/
+
+# Common development files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
