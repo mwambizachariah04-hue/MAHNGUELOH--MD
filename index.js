@@ -1,29 +1,41 @@
-const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
+const { WAConnection, MessageType } = require('@adiwajshing/baileys');
+const fs = require('fs');
 
-// Create a new client instance
-const client = new Client({
-    authStrategy: new LocalAuth() 
-});
+const ownerNumber = '254732223354';
+const botName = 'MAHNGUELOH-MD';
+const conn = new WAConnection();
 
-// Generate and display QR Code
-client.on('qr', (qr) => {
-    qrcode.generate(qr, {small: true});
-});
+async function connect() {
+    conn.on('qr', qr => {
+        console.log('SCAN THIS QR CODE:', qr);
+    });
 
-// Message handling
-client.on('message', message => {
-    console.log(`Received message: ${message.body}`);
-    // Reply to the message
-    if (message.body === 'Hello') {
-        message.reply('Hi there!');
+    conn.on('open', () => {
+        console.log('Bot is connected');
+    });
+
+    await conn.connect();
+    console.log('Connected as:', conn.user.jid);
+}
+
+const commandHandlers = {
+    ping: (msg) => `Bot is online!`,
+    hello: (msg) => `Hello, ${msg.sender}!`,
+    help: (msg) => `Available commands: ping, hello, help, info, owner`,
+    info: (msg) => `This bot is named ${botName}.`,
+    owner: (msg) => `Owner: ${ownerNumber}`
+};
+
+conn.on('chat-update', async chatUpdate => {
+    if (!chatUpdate.hasNewMessage) return;
+    const message = chatUpdate.messages.all()[0];
+    const messageContent = message.message.conversation;
+    const command = messageContent.split(' ')[0];
+
+    if (command in commandHandlers) {
+        const response = commandHandlers[command](message);
+        await conn.sendMessage(message.key.remoteJid, response, MessageType.text);
     }
 });
 
-// Ready event
-client.on('ready', () => {
-    console.log('Client is ready!');
-});
-
-// Initialize the client
-client.initialize();
+connect();
